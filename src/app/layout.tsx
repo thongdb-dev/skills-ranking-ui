@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 
-import "./globals.css";
 import AppHeader from "@/components/AppHeader";
-import AppProvider from "./app";
+import AppProvider from "@/components/AppProvider";
+
+import 'react-toastify/dist/ReactToastify.css';
+import "./globals.css";
 
 const rubik = Rubik({ subsets: ["latin"] });
 
@@ -22,7 +24,7 @@ export default function RootLayout({
       <body className={rubik.className}>
         <AppProvider>
           <AppHeader />
-          <div>{children}</div>
+          <div className="mt-[60px]">{children}</div>
         </AppProvider>
       </body>
     </html>

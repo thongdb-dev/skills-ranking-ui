@@ -1,3 +1,5 @@
+import { State as AuthState } from "@/redux/auth";
+import { State as UiState } from "@/redux/ui";
 export interface IBaseEntity {
   _id: string;
   createdAt: Date;
@@ -12,4 +14,20 @@ export enum ActiveEnum {
 export enum ThemeModeEnum {
   Light = 'light',
   Dark = 'dark',
+};
+
+export interface State {
+  auth: AuthState;
+  ui: UiState;
+};
+
+export enum MessageType {
+  Success = 'success',
+  Info = 'info',
+  Warning = 'warning',
+  Error = 'error',
+};
+export interface IMessage {
+  text: string;
+  type: MessageType;
 };

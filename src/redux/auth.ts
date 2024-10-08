@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { ThemeModeEnum } from '@/models/base.model';
 import { IUser } from "@/models/user.model";
 
-interface State {
+export interface State {
   mode: ThemeModeEnum,
   user: IUser | null,
   token: string | null,

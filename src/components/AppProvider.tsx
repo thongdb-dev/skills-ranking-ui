@@ -1,9 +1,10 @@
 "use client";
 
-import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
 
 import { persistor, store } from "@/lib/store";
+import ThemeWrapper from "@/components/ThemeWrapper";
 
 export default function AppProvider({
   children,
@@ -11,7 +12,7 @@ export default function AppProvider({
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        {children}
+        <ThemeWrapper>{children}</ThemeWrapper>
       </PersistGate>
     </Provider>
   );
