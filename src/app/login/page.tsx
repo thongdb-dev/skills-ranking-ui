@@ -105,7 +105,7 @@ const LoginPage = () => {
                     LOGIN
                   </Button>
                   <Box className="flex items-center justify-start gap-1">
-                    <Typography>Don't have an account?</Typography>
+                    <Typography>Don&#39;t have an account?</Typography>
                     <Typography
                       className="cursor-pointer underline"
                       sx={{

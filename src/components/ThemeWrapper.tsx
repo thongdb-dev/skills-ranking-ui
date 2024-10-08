@@ -29,7 +29,7 @@ export default function ThemeWrapper({
         onClose: () => dispatch(clearMessage()),
       });
     }
-  }, [message?.text, message?.type]);
+  }, [message, dispatch]);
 
   return (
     <ThemeProvider theme={theme}>
