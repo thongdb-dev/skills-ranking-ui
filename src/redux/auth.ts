@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { ThemeModeEnum } from '@/models/base.model';
 import { IUser } from "@/models/user.model";
@@ -22,7 +22,7 @@ export const authSlice = createSlice({
     toggleMode: (state: State) => {
       state.mode = state.mode === ThemeModeEnum.Light ? ThemeModeEnum.Dark : ThemeModeEnum.Light;
     },
-    setLogin: (state: State, action: any) => {
+    setLogin: (state: State, action: PayloadAction<{ user: IUser, token: string }>) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
     },

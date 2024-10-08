@@ -7,6 +7,7 @@ import * as yup from "yup";
 import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
 import { ILoginPayload } from "@/models/auth.model";
 import { API } from "@/apis/auth";
+import { setLogin } from "@/redux/auth";
 
 const schema = yup.object().shape({
   email: yup
@@ -35,7 +36,12 @@ const LoginPage = () => {
       const res = await API.login(values);
       if (res.data) {
         formikHelpers.resetForm();
-        router.push("/login");
+        const { user, token } = res.data;
+        dispatch(setLogin({
+          user: user,
+          token: token,
+        }));
+        router.push("/");
       }
     } catch (error) {}
   };

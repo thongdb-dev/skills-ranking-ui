@@ -16,19 +16,32 @@ import { DarkMode, LightMode } from "@mui/icons-material";
 
 import { setLogout, toggleMode } from "@/redux/auth";
 import { State, ThemeModeEnum } from "@/models/base.model";
+import { usePathname, useRouter } from "next/navigation";
 
 const AppHeader = () => {
+  const router = useRouter();
+  const pathName = usePathname();
   const dispatch = useDispatch();
   const user = useSelector((state: State) => state.auth.user);
 
   const theme = useTheme();
   const neutralLight = theme.palette.neutral.light;
   const dark = theme.palette.neutral.dark;
-  const background = theme.palette.background.default;
-  const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
 
   const fullName = `${user?.firstName} ${user?.lastName}`;
+
+  const logout = () => {
+    dispatch(setLogout());
+  };
+
+  const navigateToLogin = () => {
+    router.push("/login");
+  };
+
+  const navigateToRegister = () => {
+    router.push("/register");
+  };
 
   return (
     <Box
@@ -76,9 +89,7 @@ const AppHeader = () => {
                 <MenuItem value={fullName}>
                   <Typography>{fullName}</Typography>
                 </MenuItem>
-                <MenuItem onClick={() => dispatch(setLogout())}>
-                  Log Out
-                </MenuItem>
+                <MenuItem onClick={() => logout()}>Log Out</MenuItem>
               </Select>
             </FormControl>
           </>
@@ -92,8 +103,11 @@ const AppHeader = () => {
                 color: theme.palette.background.alt,
                 "&:hover": { color: theme.palette.primary.main },
               }}
+              onClick={() =>
+                pathName === "/login" ? navigateToRegister() : navigateToLogin()
+              }
             >
-              Login
+              {pathName === "/login" ? "Register" : "Login"}
             </Button>
           </>
         )}
