@@ -68,5 +68,5 @@ Before you begin, ensure you have the following installed:
 
   Email: ```fakeperson@gmail.com```
   
-  Password: ```123456```
+  Password: ```12345678```
   
