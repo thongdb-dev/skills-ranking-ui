@@ -8,4 +8,8 @@ export const API = {
   login: (payload: ILoginPayload) => {
     return axiosInstance.post('/auth/login', payload);
   },
+  activateAccount: (token: string) => {
+    console.log('api: ', token)
+    return axiosInstance.get(`/auth/activate/${token}`);
+  },
 };

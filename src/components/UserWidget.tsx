@@ -80,6 +80,9 @@ const UserWidget: React.FC<UserWidgetProps> = (props: UserWidgetProps) => {
             >
               {user.firstName} {user.lastName}
             </Typography>
+            <Typography color={theme.palette.neutral.medium}>
+              {user.email}
+            </Typography>
           </Box>
         </Box>
         <IconButton
@@ -125,7 +128,7 @@ const UserWidget: React.FC<UserWidgetProps> = (props: UserWidgetProps) => {
               color={theme.palette.primary.main}
               fontWeight="500"
               onClick={() => {
-                router.push(`/my-skills`)
+                router.push(`/my-skills`);
               }}
             >
               See More

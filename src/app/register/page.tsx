@@ -1,13 +1,19 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
 import { Formik, FormikHelpers } from "formik";
 import * as yup from "yup";
-import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  TextField,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { IRegisterPayload } from "@/models/auth.model";
 import { API } from "@/apis/auth";
-import { setSuccess } from "@/redux/ui";
 
 const schema = yup.object().shape({
   firstName: yup.string().required("First Name is required!"),
@@ -29,26 +35,58 @@ const initialValues: IRegisterPayload = {
 const RegisterPage = () => {
   const router = useRouter();
   const theme = useTheme();
-  const dispatch = useDispatch();
   const { palette } = theme;
+
+  const [isRegisterSuccess, setIsRegisterSuccess] = useState<boolean>(false);
+  const [isRegistering, setIsRegistering] = useState<boolean>(false);
 
   const register = async (
     values: IRegisterPayload,
     formikHelpers: FormikHelpers<IRegisterPayload>
   ) => {
     try {
+      setIsRegistering(true);
       const res = await API.register(values);
       if (res.data) {
         formikHelpers.resetForm();
-        router.push("/login");
-        dispatch(
-          setSuccess(
-            "Registered successfully. Please check email to activate your account!"
-          )
-        );
+        setIsRegisterSuccess(true);
       }
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      setIsRegistering(false);
+    }
   };
+
+  if (isRegisterSuccess) {
+    return (
+      <>
+        <Box className="flex items-center justify-center py-6">
+          <Box
+            className="p-6 rounded-xl w-[93%] md:w-[70%] lg:w-[50%]"
+            sx={{ backgroundColor: theme.palette.background.alt }}
+          >
+            <Typography fontWeight="700" variant="h4" sx={{ mb: "1.5rem" }}>
+              Register Account Successfully!
+            </Typography>
+            <Typography color={theme.palette.neutral.medium}>
+              {
+                "Welcome to Skills Ranking! We're very excited to have you on board. Please check your email to activate account!"
+              }
+            </Typography>
+            <Box className="!mt-[1rem] w-full flex items-center justify-center">
+              <Button
+                variant="contained"
+                className="w-full sm:w-fit"
+                onClick={() => router.push("/login")}
+              >
+                Login Now
+              </Button>
+            </Box>
+          </Box>
+        </Box>
+      </>
+    );
+  }
 
   return (
     <>
@@ -129,13 +167,19 @@ const RegisterPage = () => {
                   <Button
                     fullWidth
                     type="submit"
-                    className="!font-bold !my-[2rem] !mx-0 !p-[1rem]"
+                    className="!font-bold !my-[2rem] !mx-0 !p-[1rem] flex items-center justify-center gap-[0.5rem]"
                     sx={{
                       backgroundColor: palette.primary.main,
                       color: palette.background.alt,
                       "&:hover": { color: palette.primary.main },
                     }}
+                    disabled={isRegistering}
                   >
+                    {isRegistering && (
+                      <CircularProgress
+                        sx={{ color: theme.palette.primary.dark }}
+                      />
+                    )}
                     REGISTER
                   </Button>
                   <Box className="flex items-center justify-start gap-1">
