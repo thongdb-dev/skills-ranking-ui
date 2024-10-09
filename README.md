@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Skill Ranking UI Project
 
-## Getting Started
+## Table of Contents
+1. [Prerequisites](#prerequisites)
+2. [Installation](#installation)
+3. [Environment Variables](#environment-variables)
+4. [Running the Project](#running-the-project)
+5. [Live Demo](#live-demo)
 
-First, run the development server:
+## Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Before you begin, ensure you have the following installed:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Node.js**: [Download Node.js](https://nodejs.org/) (Recommended: version 14 or later)
+- **npm** or **yarn**: Package manager (npm is bundled with Node.js, or you can install yarn [here](https://classic.yarnpkg.com/en/docs/install/))
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. Clone the repository:
 
-## Learn More
+   ```bash
+   git clone https://github.com/thongdb-dev/skills-ranking-ui
+   cd skills-ranking-ui
+   ```
+  
+2. Install the dependencies:
+   If you're using ```npm```:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   Or if you're using ```yarn```:
+   
+   ```bash
+    yarn install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Environment Variables
 
-## Deploy on Vercel
+  Create a ```.env.local``` file at the root of your project to configure environment variables.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  Example of ```.env.local```:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+  ```bash
+  NEXT_PUBLIC_API_URL=https://skills-ranking-server.onrender.com/api/v1
+  ```
+
+  > Note: The ```NEXT_PUBLIC_``` prefix exposes environment variables to the browser. Sensitive data such as secrets should not be prefixed with ```NEXT_PUBLIC_```.
+
+## Running the Project
+
+  After installation, start the development server:
+
+  ```bash
+  npm run dev
+  # or
+  yarn dev
+  ```
+
+  Your application should now be running on [http://localhost:3000](http://localhost:3000).
+
+## Live Demo
+
+  Check out the live demo of the project here: [Demo](https://skills-ranking-ui.vercel.app/).
+
+  You can register an account by your email or using my test account:
+
+  Email: ```fakeperson@gmail.com```
+  
+  Password: ```123456```
+  
