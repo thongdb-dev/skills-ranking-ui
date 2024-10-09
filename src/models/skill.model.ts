@@ -3,6 +3,9 @@ import { IUser } from "@/models/user.model";
 
 export interface ISkill extends IBaseEntity {
   name: string;
+  description: string;
+  image: string;
+  creator: IUser;
   active: ActiveEnum;
 };
 
@@ -19,4 +22,10 @@ export enum SkillLevelEnum {
   Intermediate = 3,
   Advanced = 4,
   Expert = 5,
+};
+
+export interface ICreateSkillPayload {
+  name: string;
+  description: string;
+  creator: string;
 };

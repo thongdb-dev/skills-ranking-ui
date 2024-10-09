@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
-import { Rubik } from "next/font/google";
-
 import AppHeader from "@/components/AppHeader";
 import AppProvider from "@/components/AppProvider";
 
 import 'react-toastify/dist/ReactToastify.css';
 import "./globals.css";
-
-const rubik = Rubik({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Skills Ranking",
@@ -21,7 +17,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={rubik.className}>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap"
+        />
+      </head>
+      <body className="font-sans">
         <AppProvider>
           <AppHeader />
           <div className="mt-[60px]">{children}</div>
