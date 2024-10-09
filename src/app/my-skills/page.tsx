@@ -158,6 +158,7 @@ const MySkillsPage = () => {
                             {SKILL_LEVEL_OPTIONS.map((option: any) => {
                               return (
                                 <Box
+                                  key={option.value}
                                   className="w-full md:w-fit pl-[6px] pr-4 py-1 rounded-full flex gap-1 justify-center cursor-pointer"
                                   sx={{
                                     backgroundColor:
