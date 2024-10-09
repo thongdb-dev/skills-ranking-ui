@@ -49,7 +49,10 @@ const AppHeader = () => {
       className="fixed top-0 flex items-center justify-center w-full border-b z-30 h-[60px]"
       sx={{ backgroundColor: alt }}
     >
-      <Box className="container flex items-center justify-between">
+      <Box
+        className="container flex items-center justify-between cursor-pointer"
+        onClick={() => router.push("/")}
+      >
         <Typography
           fontWeight="bold"
           fontSize="clamp(1rem, 2rem, 2.25rem)"

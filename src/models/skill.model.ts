@@ -7,6 +7,7 @@ export interface ISkill extends IBaseEntity {
   image: string;
   creator: IUser;
   active: ActiveEnum;
+  achieved?: boolean;
 };
 
 export interface IMySkill extends IBaseEntity {
@@ -28,4 +29,13 @@ export interface ICreateSkillPayload {
   name: string;
   description: string;
   creator: string;
+};
+
+export interface IAddMySkillPayload {
+  skill: string;
+  level: SkillLevelEnum;
+};
+
+export interface IUpdateMySkillLevelPayload {
+  level: SkillLevelEnum;
 };
