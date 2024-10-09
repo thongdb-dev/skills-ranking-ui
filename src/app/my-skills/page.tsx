@@ -126,74 +126,82 @@ const MySkillsPage = () => {
                   />
                 </Box>
               </Box>
-              <Box className="flex flex-col">
-                {data.map((item: IMySkill) => {
-                  return (
-                    <Box key={item._id} className="pr-[1rem]">
-                      <Box className="pt-[0.8rem] pb-[0.5rem]">
-                        <Box className="flex justify-between">
-                          <Box>
-                            <Typography
-                              color={theme.palette.neutral.main}
-                              fontWeight="500"
-                              fontSize="1.2rem"
-                            >
-                              {item.skill.name}
-                            </Typography>
-                            <Typography color={theme.palette.neutral.medium}>
-                              {item.skill.description}
-                            </Typography>
-                          </Box>
-                          <Box>
-                            <IconButton
-                              onClick={() => handleDeleteSkill(item._id)}
-                            >
-                              <DeleteOutlined color="error" />
-                            </IconButton>
-                          </Box>
-                        </Box>
-                        <Typography className="!mt-4">Level:</Typography>
-                        <Box className="flex flex-col md:flex-row items-center justify-between gap-[0.5rem] mt-2">
-                          {SKILL_LEVEL_OPTIONS.map((option: any) => {
-                            return (
-                              <Box
-                                className="w-full md:w-fit pl-[6px] pr-4 py-1 rounded-full flex gap-1 justify-center cursor-pointer"
-                                sx={{
-                                  backgroundColor:
-                                    option.value === item.level
-                                      ? theme.palette.primary.main
-                                      : theme.palette.neutral.light,
-                                  color:
-                                    option.value === item.level
-                                      ? "#FFFFFF"
-                                      : theme.palette.neutral.dark,
-                                }}
-                                onClick={() =>
-                                  handleUpdateSkillLevel(item, option.value)
-                                }
+              {data.length > 0 ? (
+                <Box className="flex flex-col">
+                  {data.map((item: IMySkill) => {
+                    return (
+                      <Box key={item._id} className="pr-[1rem]">
+                        <Box className="pt-[0.8rem] pb-[0.5rem]">
+                          <Box className="flex justify-between">
+                            <Box>
+                              <Typography
+                                color={theme.palette.neutral.main}
+                                fontWeight="500"
+                                fontSize="1.2rem"
                               >
+                                {item.skill.name}
+                              </Typography>
+                              <Typography color={theme.palette.neutral.medium}>
+                                {item.skill.description}
+                              </Typography>
+                            </Box>
+                            <Box>
+                              <IconButton
+                                onClick={() => handleDeleteSkill(item._id)}
+                              >
+                                <DeleteOutlined color="error" />
+                              </IconButton>
+                            </Box>
+                          </Box>
+                          <Typography className="!mt-4">Level:</Typography>
+                          <Box className="flex flex-col md:flex-row items-center justify-between gap-[0.5rem] mt-2">
+                            {SKILL_LEVEL_OPTIONS.map((option: any) => {
+                              return (
                                 <Box
-                                  className="border rounded-full w-5 h-5 text-xs flex items-center justify-center"
+                                  className="w-full md:w-fit pl-[6px] pr-4 py-1 rounded-full flex gap-1 justify-center cursor-pointer"
                                   sx={{
-                                    borderColor:
+                                    backgroundColor:
+                                      option.value === item.level
+                                        ? theme.palette.primary.main
+                                        : theme.palette.neutral.light,
+                                    color:
                                       option.value === item.level
                                         ? "#FFFFFF"
                                         : theme.palette.neutral.dark,
                                   }}
+                                  onClick={() =>
+                                    handleUpdateSkillLevel(item, option.value)
+                                  }
                                 >
-                                  {option.value}
+                                  <Box
+                                    className="border rounded-full w-5 h-5 text-xs flex items-center justify-center"
+                                    sx={{
+                                      borderColor:
+                                        option.value === item.level
+                                          ? "#FFFFFF"
+                                          : theme.palette.neutral.dark,
+                                    }}
+                                  >
+                                    {option.value}
+                                  </Box>
+                                  {option.name}
                                 </Box>
-                                {option.name}
-                              </Box>
-                            );
-                          })}
+                              );
+                            })}
+                          </Box>
                         </Box>
+                        <Divider sx={{ mt: "1rem" }} />
                       </Box>
-                      <Divider sx={{ mt: "1rem" }} />
-                    </Box>
-                  );
-                })}
-              </Box>
+                    );
+                  })}
+                </Box>
+              ) : (
+                <>
+                  <Typography color={theme.palette.neutral.medium}>
+                    No Skills Added
+                  </Typography>
+                </>
+              )}
             </Box>
           </WidgetWrapper>
         </Box>

@@ -6,10 +6,13 @@ import { State } from "@/models/base.model";
 import UserWidget from "@/components/UserWidget";
 import AddSkillWidget from "@/components/AddSkillWidget";
 import SkillsWidget from "@/components/SkillsWidget";
+import { useState } from "react";
 
 export default function Home() {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const user = useSelector((state: State) => state.auth.user);
+
+  const [mySkillChanged, setMySkillChanged] = useState<boolean>(false);
 
   return (
     <Box>
@@ -18,7 +21,7 @@ export default function Home() {
         display={isNonMobileScreens ? "flex" : "block"}
       >
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-          <UserWidget userId={user?._id ?? ""} />
+          <UserWidget userId={user?._id ?? ""} mySkillChanged={mySkillChanged} />
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
@@ -28,7 +31,7 @@ export default function Home() {
             <AddSkillWidget onSkillAdded={() => {}} />
           </Box>
           <Box className="mt-[2rem]">
-            <SkillsWidget />
+            <SkillsWidget onMySkillSelected={() => setMySkillChanged(prev => !prev)} />
           </Box>
         </Box>
       </Box>

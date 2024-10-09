@@ -20,7 +20,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/models/base.model";
 import { setSuccess } from "@/redux/ui";
 
-const SkillsWidget = () => {
+const SkillsWidget = (props: any) => {
+  const { onMySkillSelected } = props;
+
   const theme = useTheme();
   const dispatch = useDispatch();
   const user = useSelector((state: State) => state.auth.user);
@@ -80,6 +82,7 @@ const SkillsWidget = () => {
           return i;
         })
       );
+      onMySkillSelected();
       dispatch(setSuccess("Added to MySkill Successfully!"));
     } catch (error) {
     } finally {
@@ -182,6 +185,7 @@ const SkillsWidget = () => {
                             borderRadius: "3rem",
                           }}
                           onClick={() => handleSelectSkill(item)}
+                          disabled={addingSkillId === item._id}
                         >
                           Select
                         </Button>

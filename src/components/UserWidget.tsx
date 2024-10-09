@@ -24,10 +24,11 @@ import { getLevelName } from "@/constants/common";
 
 interface UserWidgetProps {
   userId: string;
+  mySkillChanged: boolean;
 }
 
 const UserWidget: React.FC<UserWidgetProps> = (props: UserWidgetProps) => {
-  const { userId } = props;
+  const { userId, mySkillChanged } = props;
   const router = useRouter();
   const theme = useTheme();
 
@@ -63,6 +64,10 @@ const UserWidget: React.FC<UserWidgetProps> = (props: UserWidgetProps) => {
     }
   }, [userId]);
 
+  useEffect(() => {
+    getUserTopSkills();
+  }, [mySkillChanged])
+
   if (!user) {
     return null;
   }
@@ -85,12 +90,12 @@ const UserWidget: React.FC<UserWidgetProps> = (props: UserWidgetProps) => {
             </Typography>
           </Box>
         </Box>
-        <IconButton
+        {/* <IconButton
           sx={{ backgroundColor: theme.palette.primary.light }}
           onClick={() => router.push(`/profile`)}
         >
           <ManageAccountsOutlined sx={{ color: theme.palette.primary.dark }} />
-        </IconButton>
+        </IconButton> */}
       </Box>
 
       <Divider />
@@ -103,23 +108,33 @@ const UserWidget: React.FC<UserWidgetProps> = (props: UserWidgetProps) => {
           Your Top Skills
         </Typography>
         <Box className="my-[0.5rem]">
-          {topSkills.map((item: IMySkill) => {
-            return (
-              <Box key={item._id}>
-                <Box className="flex items-center justify-between py-[0.5rem]">
-                  <Typography
-                    color={theme.palette.neutral.main}
-                    fontWeight="500"
-                  >
-                    {item.skill.name}
-                  </Typography>
-                  <Typography color={theme.palette.neutral.medium}>
-                    {getLevelName(item.level)}
-                  </Typography>
-                </Box>
-              </Box>
-            );
-          })}
+          {topSkills.length > 0 ? (
+            <>
+              {topSkills.map((item: IMySkill) => {
+                return (
+                  <Box key={item._id}>
+                    <Box className="flex items-center justify-between py-[0.5rem]">
+                      <Typography
+                        color={theme.palette.neutral.main}
+                        fontWeight="500"
+                      >
+                        {item.skill.name}
+                      </Typography>
+                      <Typography color={theme.palette.neutral.medium}>
+                        {getLevelName(item.level)}
+                      </Typography>
+                    </Box>
+                  </Box>
+                );
+              })}
+            </>
+          ) : (
+            <>
+              <Typography color={theme.palette.neutral.medium}>
+                No Skills Added
+              </Typography>
+            </>
+          )}
         </Box>
         <Box>
           <Box className="flex items-center justify-start">
