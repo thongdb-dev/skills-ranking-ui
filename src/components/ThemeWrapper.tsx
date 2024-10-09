@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import { createTheme } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +17,9 @@ export default function ThemeWrapper({
 }: Readonly<{ children: React.ReactNode }>) {
   const mode = useSelector((state: State) => state.auth.mode);
   const message = useSelector((state: State) => state.ui.message);
+  const token = useSelector((state: State) => state.auth.token);
   const dispatch = useDispatch();
+  const router = useRouter();
   
   const theme = useMemo(() => {
     return createTheme(themeSettings(mode));
@@ -30,6 +33,12 @@ export default function ThemeWrapper({
       });
     }
   }, [message, dispatch]);
+
+  useEffect(() => {
+    if (!token) {
+      router.push('/login');
+    };
+  }, [token])
 
   return (
     <ThemeProvider theme={theme}>

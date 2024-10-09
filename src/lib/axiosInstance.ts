@@ -2,6 +2,7 @@ import axios from 'axios';
 import { store } from '@/lib/store';
 import { DEFAULT_ERROR_MESSAGE } from '@/constants/common';
 import { setError } from '@/redux/ui';
+import { setLogout } from '@/redux/auth';
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -31,8 +32,9 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     if (error.response) {
-      if (error.response.status === 401) {
-
+      if (error.response.status === 401 || error.response.status === 403) {
+        store.dispatch(setLogout());
+        return Promise.reject(error);
       }
     }
 

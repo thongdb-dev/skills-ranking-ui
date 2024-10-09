@@ -115,9 +115,9 @@ const AddSkillWidget = (props: AddSkillWidgetProps) => {
           <Button
             disabled={!skillName || isCreating}
             onClick={handleAddSkill}
+            variant="contained"
             sx={{
               color: theme.palette.background.alt,
-              backgroundColor: theme.palette.primary.main,
               borderRadius: "3rem",
               p: "0.2rem 1rem",
             }}

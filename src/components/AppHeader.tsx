@@ -10,6 +10,7 @@ import {
   MenuItem,
   Select,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { DarkMode, LightMode } from "@mui/icons-material";
@@ -19,6 +20,8 @@ import { State, ThemeModeEnum } from "@/models/base.model";
 import { usePathname, useRouter } from "next/navigation";
 
 const AppHeader = () => {
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+
   const router = useRouter();
   const pathName = usePathname();
   const dispatch = useDispatch();
@@ -46,74 +49,82 @@ const AppHeader = () => {
   return (
     <Box
       id="app-header"
-      className="fixed top-0 flex items-center justify-center w-full border-b z-30 h-[60px]"
+      className="fixed top-0 px-[6%] items-center justify-center w-full border-b z-30 h-[60px]"
+      display={isNonMobileScreens ? "flex" : "block"}
       sx={{ backgroundColor: alt }}
     >
       <Box
-        className="container flex items-center justify-between cursor-pointer"
-        onClick={() => router.push("/")}
+        className="flex items-center justify-center h-full"
+        flexBasis={isNonMobileScreens ? "70%" : undefined}
       >
-        <Typography
-          fontWeight="bold"
-          fontSize="clamp(1rem, 2rem, 2.25rem)"
-          color="primary"
+        <Box
+          className="container hidden sm:flex items-center justify-between cursor-pointer"
+          onClick={() => router.push("/")}
         >
-          Skills Ranking
-        </Typography>
-      </Box>
-      <Box className="flex items-center justify-end">
-        <IconButton className="!mr-2" onClick={() => dispatch(toggleMode())}>
-          {theme.palette.mode === ThemeModeEnum.Dark ? (
-            <DarkMode sx={{ fontSize: "25px" }} />
-          ) : (
-            <LightMode sx={{ color: dark, fontSize: "25px" }} />
-          )}
-        </IconButton>
-        {user ? (
-          <>
-            <FormControl variant="standard">
-              <Select
-                value={fullName}
-                sx={{
-                  backgroundColor: neutralLight,
-                  width: "150px",
-                  borderRadius: "0.25rem",
-                  p: "0.25rem 1rem",
-                  "& .MuiSvgIcon-root": {
-                    pr: "0.25rem",
-                    width: "3rem",
-                  },
-                  "& .MuiSelect-select:focus": {
+          <Typography
+            fontWeight="bold"
+            fontSize="clamp(1rem, 2rem, 2.25rem)"
+            color="primary"
+          >
+            Skills Ranking
+          </Typography>
+        </Box>
+        <Box className="flex items-center justify-end">
+          <IconButton className="!mr-2" onClick={() => dispatch(toggleMode())}>
+            {theme.palette.mode === ThemeModeEnum.Dark ? (
+              <DarkMode sx={{ fontSize: "25px" }} />
+            ) : (
+              <LightMode sx={{ color: dark, fontSize: "25px" }} />
+            )}
+          </IconButton>
+          {user ? (
+            <>
+              <FormControl variant="standard">
+                <Select
+                  value={fullName}
+                  sx={{
                     backgroundColor: neutralLight,
-                  },
+                    width: "150px",
+                    borderRadius: "0.25rem",
+                    p: "0.25rem 1rem",
+                    "& .MuiSvgIcon-root": {
+                      pr: "0.25rem",
+                      width: "3rem",
+                    },
+                    "& .MuiSelect-select:focus": {
+                      backgroundColor: neutralLight,
+                    },
+                  }}
+                  input={<InputBase />}
+                >
+                  <MenuItem value={fullName}>
+                    <Typography>{fullName}</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={() => logout()}>Log Out</MenuItem>
+                </Select>
+              </FormControl>
+            </>
+          ) : (
+            <>
+              <Button
+                type="submit"
+                className="!font-bold !rounded-lg"
+                sx={{
+                  backgroundColor: theme.palette.primary.main,
+                  color: theme.palette.background.alt,
+                  "&:hover": { color: theme.palette.primary.main },
                 }}
-                input={<InputBase />}
+                onClick={() =>
+                  pathName === "/login"
+                    ? navigateToRegister()
+                    : navigateToLogin()
+                }
               >
-                <MenuItem value={fullName}>
-                  <Typography>{fullName}</Typography>
-                </MenuItem>
-                <MenuItem onClick={() => logout()}>Log Out</MenuItem>
-              </Select>
-            </FormControl>
-          </>
-        ) : (
-          <>
-            <Button
-              type="submit"
-              className="!font-bold !rounded-lg"
-              sx={{
-                backgroundColor: theme.palette.primary.main,
-                color: theme.palette.background.alt,
-                "&:hover": { color: theme.palette.primary.main },
-              }}
-              onClick={() =>
-                pathName === "/login" ? navigateToRegister() : navigateToLogin()
-              }
-            >
-              {pathName === "/login" ? "Register" : "Login"}
-            </Button>
-          </>
-        )}
+                {pathName === "/login" ? "Register" : "Login"}
+              </Button>
+            </>
+          )}
+        </Box>
       </Box>
     </Box>
   );

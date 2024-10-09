@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import WidgetWrapper from "@/components/WidgetWrapper";
 import {
   Box,
@@ -13,11 +15,9 @@ import {
 } from "@mui/material";
 import { SearchOutlined, DeleteOutlined } from "@mui/icons-material";
 
-import { useEffect, useState } from "react";
+import { SKILL_LEVEL_OPTIONS } from "@/constants/common";
 import { IMySkill, SkillLevelEnum } from "@/models/skill.model";
 import { API } from "@/apis/skills";
-import { SKILL_LEVEL_OPTIONS } from "@/constants/common";
-import { useRouter } from "next/navigation";
 
 const MySkillsPage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -43,10 +43,6 @@ const MySkillsPage = () => {
   useEffect(() => {
     searchSkills();
   }, [page]);
-
-  const handleChangePage = (e: any, page: number) => {
-    setPage(page);
-  };
 
   const handleSearch = () => {
     if (page === 1) {
@@ -86,11 +82,13 @@ const MySkillsPage = () => {
         className="w-full py-[1rem] px-[6%] gap-[2rem] justify-center"
         display={isNonMobileScreens ? "flex" : "block"}
       >
-        <Box
-          flexBasis={isNonMobileScreens ? "70%" : undefined}
-        >
+        <Box flexBasis={isNonMobileScreens ? "70%" : undefined}>
           <Box className="flex items-center justify-end !mb-[1rem]">
-            <Button className="w-full sm:w-fit" variant="contained" onClick={() => router.push("/")}>
+            <Button
+              className="w-full sm:w-fit"
+              variant="contained"
+              onClick={() => router.push("/")}
+            >
               Add New Skill
             </Button>
           </Box>
@@ -159,7 +157,7 @@ const MySkillsPage = () => {
                           {SKILL_LEVEL_OPTIONS.map((option: any) => {
                             return (
                               <Box
-                                className="w-full md:w-fit px-4 py-1 rounded-full text-center cursor-pointer"
+                                className="w-full md:w-fit pl-[6px] pr-4 py-1 rounded-full flex gap-1 justify-center cursor-pointer"
                                 sx={{
                                   backgroundColor:
                                     option.value === item.level
@@ -174,6 +172,17 @@ const MySkillsPage = () => {
                                   handleUpdateSkillLevel(item, option.value)
                                 }
                               >
+                                <Box
+                                  className="border rounded-full w-5 h-5 text-xs flex items-center justify-center"
+                                  sx={{
+                                    borderColor:
+                                      option.value === item.level
+                                        ? "#FFFFFF"
+                                        : theme.palette.neutral.dark,
+                                  }}
+                                >
+                                  {option.value}
+                                </Box>
                                 {option.name}
                               </Box>
                             );
